@@ -15,13 +15,10 @@
   --gl: #eaf1eb;
   --gll: #f4f8f4;
   --dk: #1C1C1C;
-  --dk2: #2a2a2a;
   --mid: #5a5a5a;
   --light: #f5f4f0;
   --white: #ffffff;
   --border: #e0ddd6;
-  --border2: #ccc9c0;
-  --amber: #d97706;
   --amber-light: #fef3c7;
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', sans-serif;
@@ -32,84 +29,69 @@ body {
   font-family: var(--font-body);
   background: var(--light);
   color: var(--dk);
-  min-height: 100vh;
-  padding: 0;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── PAGE WRAPPER ── */
 .page {
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 36px 20px 60px;
 }
 
 /* ── HEADER ── */
 .page-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .logo-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .logo-mark {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: var(--dk);
-  border-radius: 8px;
+  border-radius: 7px;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
 }
 
-.logo-mark svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--g);
-}
-
-.logo-text {
-  text-align: left;
-}
+.logo-mark svg { width: 20px; height: 20px; fill: var(--g); }
 
 .logo-name {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--dk);
-  letter-spacing: 0.02em;
-  line-height: 1;
+  text-align: left;
+  line-height: 1.1;
 }
 
-.logo-tagline {
-  font-size: 11px;
+.logo-tag {
+  font-size: 10px;
   color: var(--mid);
   font-family: var(--font-mono);
   letter-spacing: 0.05em;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .page-title {
   font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 52px);
+  font-size: clamp(28px, 4vw, 42px);
   font-weight: 500;
   color: var(--dk);
   line-height: 1.1;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
+  margin-bottom: 8px;
 }
 
 .page-sub {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--mid);
-  line-height: 1.6;
-  max-width: 480px;
-  margin: 0 auto;
+  line-height: 1.5;
 }
 
 /* ── CMS BADGE ── */
@@ -121,44 +103,36 @@ body {
   background: var(--gl);
   border: 1px solid var(--g);
   border-radius: 20px;
-  padding: 5px 14px;
-  font-size: 12px;
+  padding: 4px 12px;
+  font-size: 11px;
   color: var(--gd);
   font-family: var(--font-mono);
-  margin: 0 auto 16px;
+  margin: 10px auto 0;
   width: fit-content;
 }
-
 .cms-badge.show { display: flex; }
+.cms-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--g); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-.cms-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--g);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-/* ── MAIN GRID ── */
-.calc-grid {
+/* ── LAYOUT ── */
+.main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 14px;
+  align-items: start;
 }
 
 /* ── CARDS ── */
 .card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
 .card-head {
-  padding: 14px 20px;
+  padding: 12px 18px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -174,23 +148,21 @@ body {
   font-family: var(--font-mono);
 }
 
-.card-body { padding: 20px; }
+.card-body { padding: 18px; }
 
-/* ── INPUTS CARD ── */
-.inputs-card { grid-column: 1 / 2; }
-
-.ctrl { margin-bottom: 22px; }
+/* ── INPUTS ── */
+.ctrl { margin-bottom: 20px; }
 .ctrl:last-child { margin-bottom: 0; }
 
 .ctrl-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .ctrl-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--mid);
   text-transform: uppercase;
@@ -198,44 +170,40 @@ body {
   font-family: var(--font-mono);
 }
 
-.ctrl-value {
-  font-size: 16px;
+.ctrl-val {
+  font-size: 15px;
   font-weight: 500;
   color: var(--dk);
   font-family: var(--font-mono);
 }
 
-/* Custom range slider */
+/* Range slider */
 input[type="range"] {
   -webkit-appearance: none;
-  appearance: none;
   width: 100%;
-  height: 4px;
+  height: 3px;
   border-radius: 2px;
   background: var(--border);
   outline: none;
   cursor: pointer;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
-
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--dk);
   cursor: pointer;
   border: 3px solid var(--white);
   box-shadow: 0 0 0 1px var(--dk);
-  transition: background 0.15s, transform 0.1s;
+  transition: transform 0.1s;
 }
-
 input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
 input[type="range"]::-moz-range-thumb {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--dk); cursor: pointer;
-  border: 3px solid var(--white); box-shadow: 0 0 0 1px var(--dk);
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--dk); border: 3px solid var(--white);
+  box-shadow: 0 0 0 1px var(--dk);
 }
 
 .range-bounds {
@@ -246,14 +214,15 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--font-mono);
 }
 
-.down-input-wrap {
+/* Down payment input */
+.down-row {
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
-.dollar-input {
+.dollar-wrap {
   flex: 1;
   display: flex;
   align-items: center;
@@ -263,34 +232,31 @@ input[type="range"]::-moz-range-thumb {
   overflow: hidden;
   transition: border-color 0.15s;
 }
+.dollar-wrap:focus-within { border-color: var(--g); }
 
-.dollar-input:focus-within { border-color: var(--g); }
-
-.dollar-prefix {
-  padding: 0 8px 0 12px;
-  font-size: 14px;
+.dollar-sym {
+  padding: 0 6px 0 11px;
+  font-size: 13px;
   color: var(--mid);
   font-family: var(--font-mono);
-  line-height: 1;
 }
 
-.dollar-input input[type="number"] {
+.dollar-wrap input[type="number"] {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 10px 12px 10px 0;
+  padding: 9px 10px 9px 0;
   font-size: 14px;
   font-family: var(--font-mono);
   color: var(--dk);
   outline: none;
   -moz-appearance: textfield;
 }
+.dollar-wrap input::-webkit-outer-spin-button,
+.dollar-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-.dollar-input input[type="number"]::-webkit-outer-spin-button,
-.dollar-input input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-
-.down-pct-chip {
-  font-size: 12px;
+.pct-chip {
+  font-size: 11px;
   font-family: var(--font-mono);
   background: var(--light);
   border: 1px solid var(--border);
@@ -299,67 +265,50 @@ input[type="range"]::-moz-range-thumb {
   color: var(--mid);
   white-space: nowrap;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
+.pct-chip.good { background: var(--gl); border-color: var(--g); color: var(--gd); }
 
-.down-pct-chip.good {
-  background: var(--gl);
-  border-color: var(--g);
-  color: var(--gd);
-}
-
-/* Alert */
 .alert {
   font-size: 11px;
   border-radius: 6px;
-  padding: 7px 10px;
+  padding: 6px 10px;
   display: none;
   line-height: 1.4;
   font-family: var(--font-mono);
+  margin-bottom: 7px;
 }
-
 .alert.warn { display: block; background: var(--amber-light); color: #92400e; border: 1px solid #fde68a; }
 .alert.info { display: block; background: var(--gl); color: var(--gd); border: 1px solid var(--g); }
 
-/* Rate display */
-.rate-display {
+.rate-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
-  padding: 8px 12px;
+  padding: 7px 11px;
   background: var(--light);
-  border-radius: 8px;
+  border-radius: 7px;
   border: 1px solid var(--border);
 }
-
-.rate-display-label { font-size: 11px; color: var(--mid); font-family: var(--font-mono); }
-
+.rate-row-label { font-size: 11px; color: var(--mid); font-family: var(--font-mono); }
 .rate-pill {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   font-family: var(--font-mono);
-  padding: 3px 10px;
+  padding: 2px 9px;
   border-radius: 20px;
   background: var(--light);
   color: var(--mid);
   border: 1px solid var(--border);
   transition: all 0.25s;
 }
-
-.rate-pill.good {
-  background: var(--gl);
-  border-color: var(--g);
-  color: var(--gd);
-}
+.rate-pill.good { background: var(--gl); border-color: var(--g); color: var(--gd); }
 
 /* Term buttons */
-.term-btns {
-  display: grid;
-  gap: 8px;
-}
+.term-btns { display: grid; gap: 7px; margin-top: 8px; }
 
 .term-btn {
-  padding: 11px 16px;
+  padding: 10px 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--light);
@@ -369,146 +318,107 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.15s;
-  text-align: center;
+  text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+.term-btn:hover { border-color: var(--g); color: var(--dk); }
+.term-btn.active { background: var(--dk); color: var(--white); border-color: var(--dk); }
+.term-btn-rate { font-size: 11px; font-family: var(--font-mono); opacity: 0.7; }
 
-.term-btn:hover { border-color: var(--g); color: var(--dk); background: var(--gll); }
-
-.term-btn.active {
-  background: var(--dk);
-  color: var(--white);
-  border-color: var(--dk);
-}
-
-.term-btn-rate {
-  font-size: 11px;
-  font-family: var(--font-mono);
-  opacity: 0.7;
-}
-
-/* ── RESULTS CARD ── */
-.results-card { grid-column: 2 / 3; }
-
+/* ── RESULTS ── */
 .monthly-hero {
   text-align: center;
-  padding: 24px 20px 20px;
+  padding: 22px 18px 18px;
   border-bottom: 1px solid var(--border);
   background: var(--dk);
   position: relative;
-  overflow: hidden;
 }
-
-.monthly-hero::before {
+.monthly-hero::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 3px;
+  height: 2px;
   background: var(--g);
 }
-
-.monthly-label {
+.monthly-lbl {
   font-size: 10px;
   font-family: var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.45);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
-
-.monthly-amount {
+.monthly-amt {
   font-family: var(--font-display);
-  font-size: clamp(42px, 6vw, 58px);
+  font-size: clamp(38px, 5vw, 52px);
   font-weight: 500;
   color: var(--white);
   line-height: 1;
   letter-spacing: -0.02em;
-  transition: all 0.2s;
 }
-
 .monthly-sub {
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
   font-family: var(--font-mono);
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
-.stats-grid {
+.stat-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
 }
-
 .stat-cell {
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
   border-right: 1px solid var(--border);
 }
-
-.stat-cell:nth-child(even) { border-right: none; }
-.stat-cell:nth-last-child(-n+2) { border-bottom: none; }
-.stat-cell:only-child { border-right: none; }
-
-.stat-label {
+.stat-cell:last-child { border-right: none; }
+.stat-lbl {
   font-size: 10px;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--mid);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
-
-.stat-value {
-  font-size: 20px;
+.stat-val {
+  font-size: 18px;
   font-weight: 500;
   color: var(--dk);
   font-family: var(--font-mono);
-  transition: all 0.2s;
 }
 
-/* ── RATE TABLE CARD ── */
-.rate-table-card { grid-column: 1 / -1; }
+/* ── RATE TABLE ── */
+.rate-card { grid-column: 1 / -1; }
 
 .rate-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
 }
-
 .rate-table th {
   font-size: 10px;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--mid);
-  padding: 10px 16px;
+  padding: 9px 16px;
   text-align: left;
   background: var(--light);
   border-bottom: 1px solid var(--border);
   font-weight: 500;
 }
-
 .rate-table td {
-  padding: 11px 16px;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
   color: var(--dk);
-  transition: background 0.15s;
+  font-size: 12px;
 }
-
 .rate-table tr:last-child td { border-bottom: none; }
-
-.rate-table tr.active-tier td {
-  background: var(--gl);
-  color: var(--gd);
-}
-
-.rate-table tr.active-tier td:first-child {
-  position: relative;
-}
-
+.rate-table tr.active-tier td { background: var(--gl); color: var(--gd); }
+.rate-table tr.active-tier td:first-child { position: relative; }
 .rate-table tr.active-tier td:first-child::before {
   content: '';
   position: absolute;
@@ -516,41 +426,36 @@ input[type="range"]::-moz-range-thumb {
   width: 3px;
   background: var(--g);
 }
-
 .tier-badge {
   display: inline-block;
   background: var(--g);
   color: var(--white);
   font-size: 9px;
   font-family: var(--font-mono);
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 20px;
-  margin-left: 8px;
-  letter-spacing: 0.05em;
+  margin-left: 7px;
 }
 
 /* ── NOTES ── */
-.notes-grid {
+.notes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px 24px;
-  padding: 18px 20px;
+  gap: 6px 20px;
+  padding: 14px 18px;
   border-top: 1px solid var(--border);
   background: var(--light);
 }
-
-.note-item {
+.note {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
+  gap: 7px;
+  font-size: 11px;
   color: var(--mid);
-  line-height: 1.5;
+  line-height: 1.4;
 }
-
 .note-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px; height: 4px;
   border-radius: 50%;
   background: var(--g);
   flex-shrink: 0;
@@ -563,21 +468,15 @@ input[type="range"]::-moz-range-thumb {
   color: #aaa;
   line-height: 1.6;
   text-align: center;
-  margin-top: 24px;
-  padding: 0 24px;
+  margin-top: 20px;
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 640px) {
-  .page { padding: 24px 16px 48px; }
-  .calc-grid { grid-template-columns: 1fr; }
-  .inputs-card, .results-card, .rate-table-card { grid-column: 1 / -1; }
-  .page-title { font-size: 32px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .notes-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 600px) {
+  .page { padding: 24px 14px 48px; }
+  .main-grid { grid-template-columns: 1fr; }
+  .rate-card { grid-column: 1 / -1; }
+  .notes { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -585,65 +484,57 @@ input[type="range"]::-moz-range-thumb {
 
 <div class="page">
 
-  <!-- Header -->
   <div class="page-header">
     <div class="logo-lockup">
       <div class="logo-mark">
         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
-      <div class="logo-text">
+      <div>
         <div class="logo-name">Mountains West Ranches</div>
-        <div class="logo-tagline">Land &middot; Investment &middot; Ranches</div>
+        <div class="logo-tag">Land &middot; Investment &middot; Ranches</div>
       </div>
     </div>
     <h1 class="page-title">Owner Financing Calculator</h1>
     <p class="page-sub">No credit check. No bank. Just land. See your monthly payment and rate instantly.</p>
     <div class="cms-badge" id="cms-badge">
-      <span class="cms-dot"></span>
-      Price pulled from this listing
+      <span class="cms-dot"></span> Price pulled from this listing
     </div>
   </div>
 
-  <!-- Main grid -->
-  <div class="calc-grid">
+  <div class="main-grid">
 
-    <!-- Inputs card -->
-    <div class="card inputs-card">
-      <div class="card-head">
-        <span class="card-title">Your details</span>
-      </div>
+    <!-- Inputs -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Your details</span></div>
       <div class="card-body">
 
-        <!-- Parcel price -->
         <div class="ctrl">
           <div class="ctrl-label">
             <span class="ctrl-name">Parcel price</span>
-            <span class="ctrl-value" id="price-out">$50,000</span>
+            <span class="ctrl-val" id="price-out">$50,000</span>
           </div>
           <input type="range" id="price-slider" min="5000" max="200000" step="1000" value="50000">
           <div class="range-bounds"><span>$5,000</span><span>$200,000</span></div>
         </div>
 
-        <!-- Down payment -->
         <div class="ctrl">
           <div class="ctrl-label">
             <span class="ctrl-name">Down payment</span>
           </div>
-          <div class="down-input-wrap">
-            <div class="dollar-input">
-              <span class="dollar-prefix">$</span>
+          <div class="down-row">
+            <div class="dollar-wrap">
+              <span class="dollar-sym">$</span>
               <input type="number" id="down-input" min="500" step="100" value="5000">
             </div>
-            <div class="down-pct-chip" id="down-pct-chip">10%</div>
+            <div class="pct-chip" id="pct-chip">10%</div>
           </div>
           <div class="alert" id="alert-box"></div>
-          <div class="rate-display">
-            <span class="rate-display-label">Your interest rate</span>
+          <div class="rate-row">
+            <span class="rate-row-label">Your interest rate</span>
             <span class="rate-pill" id="rate-pill">—</span>
           </div>
         </div>
 
-        <!-- Term -->
         <div class="ctrl">
           <div class="ctrl-label">
             <span class="ctrl-name">Loan term</span>
@@ -654,33 +545,32 @@ input[type="range"]::-moz-range-thumb {
       </div>
     </div>
 
-    <!-- Results card -->
-    <div class="card results-card">
+    <!-- Results -->
+    <div class="card">
       <div class="monthly-hero">
-        <div class="monthly-label">Monthly payment</div>
-        <div class="monthly-amount" id="r-monthly">—</div>
-        <div class="monthly-sub" id="r-rate-sub">—</div>
+        <div class="monthly-lbl">Monthly payment</div>
+        <div class="monthly-amt" id="r-monthly">—</div>
+        <div class="monthly-sub" id="r-sub">—</div>
       </div>
-      <div class="stats-grid">
+      <div class="stat-pair">
         <div class="stat-cell">
-          <div class="stat-label">Amount financed</div>
-          <div class="stat-value" id="r-financed">—</div>
+          <div class="stat-lbl">Amount financed</div>
+          <div class="stat-val" id="r-financed">—</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-label">Down payment</div>
-          <div class="stat-value" id="r-down">—</div>
+          <div class="stat-lbl">Down payment</div>
+          <div class="stat-val" id="r-down">—</div>
         </div>
       </div>
     </div>
-</div>
 
-    <!-- Rate table card -->
-    <div class="card rate-table-card">
+    <!-- Rate table -->
+    <div class="card rate-card">
       <div class="card-head">
         <span class="card-title">Standard interest rate schedule</span>
         <span style="font-size:11px;color:var(--mid);font-family:var(--font-mono)">Your tier is highlighted</span>
       </div>
-      <table class="rate-table" id="rate-table">
+      <table class="rate-table">
         <thead>
           <tr>
             <th>Down payment</th>
@@ -688,36 +578,35 @@ input[type="range"]::-moz-range-thumb {
             <th>15-year rate</th>
           </tr>
         </thead>
-        <tbody id="rate-table-body"></tbody>
+        <tbody id="rate-tbody"></tbody>
       </table>
-      <div class="notes-grid">
-        <div class="note-item"><span class="note-dot"></span>0% interest if balance paid within 90 days</div>
-        <div class="note-item"><span class="note-dot"></span>Rate reduced by 1% for a 5-year note</div>
-        <div class="note-item"><span class="note-dot"></span>Lots under $15,000 must be financed at 5 years or less</div>
-        <div class="note-item"><span class="note-dot"></span>Down payment due at closing or within 14 days</div>
-        <div class="note-item"><span class="note-dot"></span>First payment 30 days from purchase, on the 1st or 15th</div>
-        <div class="note-item"><span class="note-dot"></span>Promotions cannot be combined &mdash; one per property</div>
+      <div class="notes">
+        <div class="note"><span class="note-dot"></span>0% interest if balance paid within 90 days</div>
+        <div class="note"><span class="note-dot"></span>Rate reduced by 1% for a 5-year note</div>
+        <div class="note"><span class="note-dot"></span>Lots under $15,000 financed at 5 years or less</div>
+        <div class="note"><span class="note-dot"></span>Down payment due at closing or within 14 days</div>
+        <div class="note"><span class="note-dot"></span>First payment 30 days from purchase, on the 1st or 15th</div>
+        <div class="note"><span class="note-dot"></span>Promotions cannot be combined — one per property</div>
       </div>
     </div>
 
-  </div><!-- /calc-grid -->
+  </div>
 
   <p class="disclosure">
-    Estimates are for illustrative purposes only and do not constitute a loan offer. Actual terms, rates, and payments are set at the time of signing. Contact Mountains West Ranches for current availability and pricing.
-    <br>Questions? Visit <strong style="color:var(--dk)">mwranches.com</strong> or call us directly.
+    Estimates are for illustrative purposes only and do not constitute a loan offer. Actual terms and payments are set at signing.<br>
+    Questions? Visit <strong style="color:var(--dk)">mwranches.com</strong> or call us directly.
   </p>
 
-</div><!-- /page -->
+</div>
 
 <script>
-/* ── RATE TIERS ─────────────────────────────────────────────── */
 const TIERS = [
-  { id:'500',  label:'$500 down', note:'lots $45,000 or less', minDown:500,  maxDown:999,  pctDown:null, onlyUnder:45000, r10:13.99, r15:14.99 },
-  { id:'1k',   label:'$1,000 down',  note:'',                 minDown:1000, maxDown:1999, pctDown:null, onlyUnder:null,  r10:12.99, r15:13.99 },
-  { id:'2k',   label:'$2,000 down',  note:'',                 minDown:2000, maxDown:4999, pctDown:null, onlyUnder:null,  r10:11.99, r15:12.99 },
-  { id:'5k',   label:'$5,000 down',  note:'',                 minDown:5000, maxDown:null, pctDown:null, onlyUnder:null,  r10:10.99, r15:11.99 },
-  { id:'10pct',label:'10% down',     note:'',                 minDown:null, maxDown:null, pctDown:0.10, onlyUnder:null,  r10:10.00, r15:11.00 },
-  { id:'25pct',label:'25% down',     note:'',                 minDown:null, maxDown:null, pctDown:0.25, onlyUnder:null,  r10: 8.00, r15: 9.00 },
+  { id:'500',   label:'$500 down',   note:'lots $45,000 or less', minDown:500,  pctDown:null, onlyUnder:45000, r10:13.99, r15:14.99 },
+  { id:'1k',    label:'$1,000 down', note:'',                     minDown:1000, pctDown:null, onlyUnder:null,  r10:12.99, r15:13.99 },
+  { id:'2k',    label:'$2,000 down', note:'',                     minDown:2000, pctDown:null, onlyUnder:null,  r10:11.99, r15:12.99 },
+  { id:'5k',    label:'$5,000 down', note:'',                     minDown:5000, pctDown:null, onlyUnder:null,  r10:10.99, r15:11.99 },
+  { id:'10pct', label:'10% down',    note:'',                     minDown:null, pctDown:0.10, onlyUnder:null,  r10:10.00, r15:11.00 },
+  { id:'25pct', label:'25% down',    note:'',                     minDown:null, pctDown:0.25, onlyUnder:null,  r10: 8.00, r15: 9.00 },
 ];
 
 function getTier(price, down) {
@@ -732,7 +621,7 @@ function getTier(price, down) {
 }
 
 function getRate(tier, termYrs) {
-  let r = termYrs === 10 ? tier.r10 : (termYrs === 15 ? tier.r15 : tier.r10);
+  let r = termYrs === 15 ? tier.r15 : tier.r10;
   if (termYrs === 5) r = parseFloat((r - 1).toFixed(2));
   return r;
 }
@@ -741,11 +630,9 @@ function availableTerms(price) {
   return price < 15000 ? [5] : [5, 10, 15];
 }
 
-/* ── STATE ──────────────────────────────────────────────────── */
 let activeTerm = 10;
 let cmsPrice = null;
 
-/* ── HELPERS ────────────────────────────────────────────────── */
 function fi(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 function fp(n) { return n.toFixed(2) + '%'; }
 
@@ -757,19 +644,17 @@ function calcMonthly(principal, annualRate, yrs) {
   return principal * (r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
 }
 
-
-/* ── BUILD TERM BUTTONS ─────────────────────────────────────── */
 function buildTermBtns(price, tier) {
   const terms = availableTerms(price);
-  if (!terms.includes(activeTerm)) activeTerm = terms[terms.length > 1 ? 1 : 0];
+  if (!terms.includes(activeTerm)) activeTerm = terms.includes(10) ? 10 : terms[0];
   const wrap = document.getElementById('term-btns');
   wrap.style.gridTemplateColumns = terms.map(() => '1fr').join(' ');
   wrap.innerHTML = terms.map(t => {
     const rate = getRate(tier, t);
     const label = t === 5 ? '5 years' : t === 10 ? '10 years' : '15 years';
-    const note = t === 5 ? ' &mdash; 1% rate reduction' : '';
-    return `<button class="term-btn${activeTerm === t ? ' active' : ''}" onclick="setTerm(${t})">
-      <span>${label}${note ? '<br><small style="font-size:10px;opacity:0.6">1% rate reduction applied</small>' : ''}</span>
+    const sub = t === 5 ? '<br><span style="font-size:10px;opacity:0.55;font-family:var(--font-mono)">1% rate reduction</span>' : '';
+    return `<button class="term-btn${activeTerm===t?' active':''}" onclick="setTerm(${t})">
+      <span>${label}${sub}</span>
       <span class="term-btn-rate">${fp(rate)}</span>
     </button>`;
   }).join('');
@@ -777,21 +662,19 @@ function buildTermBtns(price, tier) {
 
 function setTerm(t) { activeTerm = t; update(); }
 
-/* ── BUILD RATE TABLE ───────────────────────────────────────── */
 function buildRateTable(activeTierId) {
-  document.getElementById('rate-table-body').innerHTML = TIERS.map(t => {
+  document.getElementById('rate-tbody').innerHTML = TIERS.map(t => {
     const isActive = t.id === activeTierId;
-    const noteHtml = t.note ? ` <span style="font-size:10px;opacity:0.6">(${t.note})</span>` : '';
-    const badgeHtml = isActive ? `<span class="tier-badge">Your rate</span>` : '';
-    return `<tr class="${isActive ? 'active-tier' : ''}">
-      <td>${t.label}${noteHtml}${badgeHtml}</td>
+    const note = t.note ? ` <span style="font-size:10px;opacity:0.6">(${t.note})</span>` : '';
+    const badge = isActive ? `<span class="tier-badge">Your rate</span>` : '';
+    return `<tr class="${isActive?'active-tier':''}">
+      <td>${t.label}${note}${badge}</td>
       <td>${fp(t.r10)}</td>
       <td>${fp(t.r15)}</td>
     </tr>`;
   }).join('');
 }
 
-/* ── MAIN UPDATE ────────────────────────────────────────────── */
 function update() {
   const price = parseInt(document.getElementById('price-slider').value);
   let down = parseFloat(document.getElementById('down-input').value) || 0;
@@ -799,7 +682,6 @@ function update() {
 
   document.getElementById('price-out').textContent = fi(price);
 
-  /* Min down enforcement */
   const minDown = price <= 45000 ? 500 : 1000;
   alertEl.className = 'alert';
 
@@ -808,41 +690,36 @@ function update() {
     alertEl.className = 'alert warn';
     down = minDown;
   } else if (activeTerm === 5) {
-    alertEl.textContent = '1% rate reduction automatically applied for your 5-year term.';
+    alertEl.textContent = '1% rate reduction applied for your 5-year term.';
     alertEl.className = 'alert info';
   }
 
   if (down >= price) down = Math.round(price * 0.95);
 
-  /* Percent chip */
   const pct = down / price;
-  const pctRounded = Math.round(pct * 100);
-  const chip = document.getElementById('down-pct-chip');
-  chip.textContent = pctRounded + '% down';
-  chip.className = 'down-pct-chip' + (pct >= 0.10 ? ' good' : '');
+  const chip = document.getElementById('pct-chip');
+  chip.textContent = Math.round(pct * 100) + '% down';
+  chip.className = 'pct-chip' + (pct >= 0.10 ? ' good' : '');
 
-  /* Tier + rate */
   const tier = getTier(price, down);
   const rate = getRate(tier, activeTerm);
 
-  const ratePill = document.getElementById('rate-pill');
-  ratePill.textContent = fp(rate);
-  ratePill.className = 'rate-pill' + (pct >= 0.10 ? ' good' : '');
+  const pill = document.getElementById('rate-pill');
+  pill.textContent = fp(rate);
+  pill.className = 'rate-pill' + (pct >= 0.10 ? ' good' : '');
 
   buildTermBtns(price, tier);
   buildRateTable(tier.id);
 
-  /* Calculations */
   const principal = price - down;
   const monthly = calcMonthly(principal, rate, activeTerm);
 
   document.getElementById('r-monthly').textContent = fi(monthly);
-  document.getElementById('r-rate-sub').textContent = fp(rate) + ' annual rate \u00B7 ' + activeTerm + '-year term';
+  document.getElementById('r-sub').textContent = fp(rate) + ' \u00B7 ' + activeTerm + '-year term';
   document.getElementById('r-financed').textContent = fi(principal);
   document.getElementById('r-down').textContent = fi(down);
 }
 
-/* WEBFLOW: send { mwrPrice: price } via postMessage to lock slider to listing price */
 window.addEventListener('message', function(e) {
   if (e.data && e.data.mwrPrice) {
     const p = parseFloat(e.data.mwrPrice);
@@ -861,7 +738,6 @@ window.addEventListener('message', function(e) {
   }
 });
 
-/* INIT */
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('price-slider').addEventListener('input', update);
   document.getElementById('down-input').addEventListener('input', update);
