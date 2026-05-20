@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Financing Calculator — Mountains West Ranches</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g: #759A7A;
+  --gd: #4d6e52;
+  --gl: #eaf1eb;
+  --gll: #f4f8f4;
+  --dk: #1C1C1C;
+  --mid: #5a5a5a;
+  --light: #f5f4f0;
+  --white: #ffffff;
+  --border: #e0ddd6;
+  --amber-light: #fef3c7;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--light);
+  color: var(--dk);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+/* ── HEADER ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--dk);
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+}
+
+.logo-mark svg { width: 20px; height: 20px; fill: var(--g); }
+
+.logo-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dk);
+  text-align: left;
+  line-height: 1.1;
+}
+
+.logo-tag {
+  font-size: 10px;
+  color: var(--mid);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 500;
+  color: var(--dk);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.page-sub {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+/* ── CMS BADGE ── */
+.cms-badge {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--gl);
+  border: 1px solid var(--g);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--gd);
+  font-family: var(--font-mono);
+  margin: 10px auto 0;
+  width: fit-content;
+}
+.cms-badge.show { display: flex; }
+.cms-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--g); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── LAYOUT ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+  align-items: start;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card-head {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+  font-family: var(--font-mono);
+}
+
+.card-body { padding: 18px; }
+
+/* ── INPUTS ── */
+.ctrl { margin-bottom: 20px; }
+.ctrl:last-child { margin-bottom: 0; }
+
+.ctrl-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ctrl-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+}
+
+.ctrl-val {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dk);
+  font-family: var(--font-mono);
+}
+
+/* Range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--dk);
+  cursor: pointer;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 1px var(--dk);
+  transition: transform 0.1s;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--dk); border: 3px solid var(--white);
+  box-shadow: 0 0 0 1px var(--dk);
+}
+
+.range-bounds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #aaa;
+  font-family: var(--font-mono);
+}
+
+/* Down payment input */
+.down-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.dollar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.dollar-wrap:focus-within { border-color: var(--g); }
+
+.dollar-sym {
+  padding: 0 6px 0 11px;
+  font-size: 13px;
+  color: var(--mid);
+  font-family: var(--font-mono);
+}
+
+.dollar-wrap input[type="number"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 9px 10px 9px 0;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--dk);
+  outline: none;
+  -moz-appearance: textfield;
+}
+.dollar-wrap input::-webkit-outer-spin-button,
+.dollar-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.pct-chip {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: var(--mid);
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.pct-chip.good { background: var(--gl); border-color: var(--g); color: var(--gd); }
+
+.alert {
+  font-size: 11px;
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: none;
+  line-height: 1.4;
+  font-family: var(--font-mono);
+  margin-bottom: 7px;
+}
+.alert.warn { display: block; background: var(--amber-light); color: #92400e; border: 1px solid #fde68a; }
+.alert.info { display: block; background: var(--gl); color: var(--gd); border: 1px solid var(--g); }
+
+.rate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 11px;
+  background: var(--light);
+  border-radius: 7px;
+  border: 1px solid var(--border);
+}
+.rate-row-label { font-size: 11px; color: var(--mid); font-family: var(--font-mono); }
+.rate-pill {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: var(--light);
+  color: var(--mid);
+  border: 1px solid var(--border);
+  transition: all 0.25s;
+}
+.rate-pill.good { background: var(--gl); border-color: var(--g); color: var(--gd); }
+
+/* Term buttons */
+.term-btns { display: grid; gap: 7px; margin-top: 8px; }
+
+.term-btn {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--light);
+  color: var(--mid);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.term-btn:hover { border-color: var(--g); color: var(--dk); }
+.term-btn.active { background: var(--dk); color: var(--white); border-color: var(--dk); }
+.term-btn-rate { font-size: 11px; font-family: var(--font-mono); opacity: 0.7; }
+
+/* ── RESULTS ── */
+.monthly-hero {
+  text-align: center;
+  padding: 22px 18px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--dk);
+  position: relative;
+}
+.monthly-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--g);
+}
+.monthly-lbl {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 6px;
+}
+.monthly-amt {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 52px);
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.monthly-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
+  font-family: var(--font-mono);
+  margin-top: 6px;
+}
+
+.stat-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.stat-cell {
+  padding: 14px 16px;
+  border-right: 1px solid var(--border);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-lbl {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin-bottom: 4px;
+}
+.stat-val {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--dk);
+  font-family: var(--font-mono);
+}
+
+/* ── RATE TABLE ── */
+.rate-card { grid-column: 1 / -1; }
+
+.rate-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.rate-table th {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  padding: 9px 16px;
+  text-align: left;
+  background: var(--light);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+.rate-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  color: var(--dk);
+  font-size: 12px;
+}
+.rate-table tr:last-child td { border-bottom: none; }
+.rate-table tr.active-tier td { background: var(--gl); color: var(--gd); }
+.rate-table tr.active-tier td:first-child { position: relative; }
+.rate-table tr.active-tier td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--g);
+}
+.tier-badge {
+  display: inline-block;
+  background: var(--g);
+  color: var(--white);
+  font-size: 9px;
+  font-family: var(--font-mono);
+  padding: 2px 6px;
+  border-radius: 20px;
+  margin-left: 7px;
+}
+
+/* ── NOTES ── */
+.notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+  background: var(--light);
+}
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--mid);
+  line-height: 1.4;
+}
+.note-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--g);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ── DISCLOSURE ── */
+.disclosure {
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .page { padding: 24px 14px 48px; }
+  .main-grid { grid-template-columns: 1fr; }
+  .rate-card { grid-column: 1 / -1; }
+  .notes { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="logo-lockup">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="logo-name">Mountains West Ranches</div>
+        <div class="logo-tag">Land &middot; Investment &middot; Ranches</div>
+      </div>
+    </div>
+    <h1 class="page-title">Owner Financing Calculator</h1>
+    <p class="page-sub">No credit check. No bank. Just land. See your monthly payment and rate instantly.</p>
+    <div class="cms-badge" id="cms-badge">
+      <span class="cms-dot"></span> Price pulled from this listing
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- Inputs -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Your details</span></div>
+      <div class="card-body">
+
+        <div class="ctrl">
+          <div class="ctrl-label">
+            <span class="ctrl-name">Parcel price</span>
+            <span class="ctrl-val" id="price-out">$50,000</span>
+          </div>
+          <input type="range" id="price-slider" min="5000" max="200000" step="1000" value="50000">
+          <div class="range-bounds"><span>$5,000</span><span>$200,000</span></div>
+        </div>
+
+        <div class="ctrl">
+          <div class="ctrl-label">
+            <span class="ctrl-name">Down payment</span>
+          </div>
+          <div class="down-row">
+            <div class="dollar-wrap">
+              <span class="dollar-sym">$</span>
+              <input type="number" id="down-input" min="500" step="100" value="5000">
+            </div>
+            <div class="pct-chip" id="pct-chip">10%</div>
+          </div>
+          <div class="alert" id="alert-box"></div>
+          <div class="rate-row">
+            <span class="rate-row-label">Your interest rate</span>
+            <span class="rate-pill" id="rate-pill">—</span>
+          </div>
+        </div>
+
+        <div class="ctrl">
+          <div class="ctrl-label">
+            <span class="ctrl-name">Loan term</span>
+          </div>
+          <div class="term-btns" id="term-btns"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card">
+      <div class="monthly-hero">
+        <div class="monthly-lbl">Monthly payment</div>
+        <div class="monthly-amt" id="r-monthly">—</div>
+        <div class="monthly-sub" id="r-sub">—</div>
+      </div>
+      <div class="stat-pair">
+        <div class="stat-cell">
+          <div class="stat-lbl">Amount financed</div>
+          <div class="stat-val" id="r-financed">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-lbl">Down payment</div>
+          <div class="stat-val" id="r-down">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rate table -->
+    <div class="card rate-card">
+      <div class="card-head">
+        <span class="card-title">Standard interest rate schedule</span>
+        <span style="font-size:11px;color:var(--mid);font-family:var(--font-mono)">Your tier is highlighted</span>
+      </div>
+      <table class="rate-table">
+        <thead>
+          <tr>
+            <th>Down payment</th>
+            <th>10-year rate</th>
+            <th>15-year rate</th>
+          </tr>
+        </thead>
+        <tbody id="rate-tbody"></tbody>
+      </table>
+      <div class="notes">
+        <div class="note"><span class="note-dot"></span>0% interest if balance paid within 90 days</div>
+        <div class="note"><span class="note-dot"></span>Rate reduced by 1% for a 5-year note</div>
+        <div class="note"><span class="note-dot"></span>Lots under $15,000 financed at 5 years or less</div>
+        <div class="note"><span class="note-dot"></span>Down payment due at closing or within 14 days</div>
+        <div class="note"><span class="note-dot"></span>First payment 30 days from purchase, on the 1st or 15th</div>
+        <div class="note"><span class="note-dot"></span>Promotions cannot be combined — one per property</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="disclosure">
+    Estimates are for illustrative purposes only and do not constitute a loan offer. Actual terms and payments are set at signing.<br>
+    Questions? Visit <strong style="color:var(--dk)">mwranches.com</strong> or call us directly.
+  </p>
+
+</div>
+
+<script>
+const TIERS = [
+  { id:'500',   label:'$500 down',   note:'lots $45,000 or less', minDown:500,  pctDown:null, onlyUnder:45000, r10:13.99, r15:14.99 },
+  { id:'1k',    label:'$1,000 down', note:'',                     minDown:1000, pctDown:null, onlyUnder:null,  r10:12.99, r15:13.99 },
+  { id:'2k',    label:'$2,000 down', note:'',                     minDown:2000, pctDown:null, onlyUnder:null,  r10:11.99, r15:12.99 },
+  { id:'5k',    label:'$5,000 down', note:'',                     minDown:5000, pctDown:null, onlyUnder:null,  r10:10.99, r15:11.99 },
+  { id:'10pct', label:'10% down',    note:'',                     minDown:null, pctDown:0.10, onlyUnder:null,  r10:10.00, r15:11.00 },
+  { id:'25pct', label:'25% down',    note:'',                     minDown:null, pctDown:0.25, onlyUnder:null,  r10: 8.00, r15: 9.00 },
+];
+
+function getTier(price, down) {
+  const pct = down / price;
+  if (pct >= 0.25) return TIERS[5];
+  if (pct >= 0.10) return TIERS[4];
+  if (down >= 5000) return TIERS[3];
+  if (down >= 2000) return TIERS[2];
+  if (down >= 1000) return TIERS[1];
+  if (down >= 500 && price <= 45000) return TIERS[0];
+  return TIERS[1];
+}
+
+function getRate(tier, termYrs) {
+  let r = termYrs === 15 ? tier.r15 : tier.r10;
+  if (termYrs === 5) r = parseFloat((r - 1).toFixed(2));
+  return r;
+}
+
+function availableTerms(price) {
+  return price < 15000 ? [5] : [5, 10, 15];
+}
+
+let activeTerm = 10;
+let cmsPrice = null;
+
+function fi(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+function fp(n) { return n.toFixed(2) + '%'; }
+
+function calcMonthly(principal, annualRate, yrs) {
+  if (principal <= 0) return 0;
+  const r = annualRate / 100 / 12;
+  const n = yrs * 12;
+  if (r === 0) return principal / n;
+  return principal * (r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+}
+
+function buildTermBtns(price, tier) {
+  const terms = availableTerms(price);
+  if (!terms.includes(activeTerm)) activeTerm = terms.includes(10) ? 10 : terms[0];
+  const wrap = document.getElementById('term-btns');
+  wrap.style.gridTemplateColumns = terms.map(() => '1fr').join(' ');
+  wrap.innerHTML = terms.map(t => {
+    const rate = getRate(tier, t);
+    const label = t === 5 ? '5 years' : t === 10 ? '10 years' : '15 years';
+    const sub = t === 5 ? '<br><span style="font-size:10px;opacity:0.55;font-family:var(--font-mono)">1% rate reduction</span>' : '';
+    return `<button class="term-btn${activeTerm===t?' active':''}" onclick="setTerm(${t})">
+      <span>${label}${sub}</span>
+      <span class="term-btn-rate">${fp(rate)}</span>
+    </button>`;
+  }).join('');
+}
+
+function setTerm(t) { activeTerm = t; update(); }
+
+function buildRateTable(activeTierId) {
+  document.getElementById('rate-tbody').innerHTML = TIERS.map(t => {
+    const isActive = t.id === activeTierId;
+    const note = t.note ? ` <span style="font-size:10px;opacity:0.6">(${t.note})</span>` : '';
+    const badge = isActive ? `<span class="tier-badge">Your rate</span>` : '';
+    return `<tr class="${isActive?'active-tier':''}">
+      <td>${t.label}${note}${badge}</td>
+      <td>${fp(t.r10)}</td>
+      <td>${fp(t.r15)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function update() {
+  const price = parseInt(document.getElementById('price-slider').value);
+  let down = parseFloat(document.getElementById('down-input').value) || 0;
+  const alertEl = document.getElementById('alert-box');
+
+  document.getElementById('price-out').textContent = fi(price);
+
+  const minDown = price <= 45000 ? 500 : 1000;
+  alertEl.className = 'alert';
+
+  if (down < minDown) {
+    alertEl.textContent = 'Minimum down payment for this property is ' + fi(minDown) + '.';
+    alertEl.className = 'alert warn';
+    down = minDown;
+  } else if (activeTerm === 5) {
+    alertEl.textContent = '1% rate reduction applied for your 5-year term.';
+    alertEl.className = 'alert info';
+  }
+
+  if (down >= price) down = Math.round(price * 0.95);
+
+  const pct = down / price;
+  const chip = document.getElementById('pct-chip');
+  chip.textContent = Math.round(pct * 100) + '% down';
+  chip.className = 'pct-chip' + (pct >= 0.10 ? ' good' : '');
+
+  const tier = getTier(price, down);
+  const rate = getRate(tier, activeTerm);
+
+  const pill = document.getElementById('rate-pill');
+  pill.textContent = fp(rate);
+  pill.className = 'rate-pill' + (pct >= 0.10 ? ' good' : '');
+
+  buildTermBtns(price, tier);
+  buildRateTable(tier.id);
+
+  const principal = price - down;
+  const monthly = calcMonthly(principal, rate, activeTerm);
+
+  document.getElementById('r-monthly').textContent = fi(monthly);
+  document.getElementById('r-sub').textContent = fp(rate) + ' \u00B7 ' + activeTerm + '-year term';
+  document.getElementById('r-financed').textContent = fi(principal);
+  document.getElementById('r-down').textContent = fi(down);
+}
+
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.mwrPrice) {
+    const p = parseFloat(e.data.mwrPrice);
+    if (!isNaN(p) && p > 0) {
+      cmsPrice = p;
+      const slider = document.getElementById('price-slider');
+      slider.value = Math.min(Math.max(p, parseInt(slider.min)), parseInt(slider.max));
+      slider.disabled = true;
+      slider.style.opacity = '0.35';
+      slider.style.cursor = 'not-allowed';
+      document.getElementById('cms-badge').classList.add('show');
+      const tenPct = Math.round(p * 0.10 / 100) * 100;
+      document.getElementById('down-input').value = Math.max(tenPct, 1000);
+      update();
+    }
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('price-slider').addEventListener('input', update);
+  document.getElementById('down-input').addEventListener('input', update);
+  update();
+});
+</script>
+</body>
+</html>
