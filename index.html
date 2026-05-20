@@ -38,7 +38,7 @@ body {
   padding: 36px 20px 60px;
 }
 
-/* ── HEADER ── */
+/* HEADER */
 .page-header {
   text-align: center;
   margin-bottom: 32px;
@@ -59,7 +59,7 @@ body {
   line-height: 1.5;
 }
 
-/* ── CMS BADGE ── */
+/* CMS BADGE */
 .cms-badge {
   display: none;
   align-items: center;
@@ -79,7 +79,7 @@ body {
 .cms-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--g); animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-/* ── LAYOUT ── */
+/* LAYOUT */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -88,7 +88,7 @@ body {
   align-items: start;
 }
 
-/* ── CARDS ── */
+/* CARDS */
 .card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -115,7 +115,7 @@ body {
 
 .card-body { padding: 18px; }
 
-/* ── INPUTS ── */
+/* INPUTS */
 .ctrl { margin-bottom: 20px; }
 .ctrl:last-child { margin-bottom: 0; }
 
@@ -142,7 +142,6 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Range slider */
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
@@ -179,7 +178,6 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--font-mono);
 }
 
-/* Down payment input */
 .down-row {
   display: flex;
   gap: 8px;
@@ -269,7 +267,6 @@ input[type="range"]::-moz-range-thumb {
 }
 .rate-pill.good { background: var(--gl); border-color: var(--g); color: var(--gd); }
 
-/* Term buttons */
 .term-btns { display: grid; gap: 7px; margin-top: 8px; }
 
 .term-btn {
@@ -292,7 +289,7 @@ input[type="range"]::-moz-range-thumb {
 .term-btn.active { background: var(--dk); color: var(--white); border-color: var(--dk); }
 .term-btn-rate { font-size: 11px; font-family: var(--font-mono); opacity: 0.7; }
 
-/* ── RESULTS ── */
+/* RESULTS */
 .monthly-hero {
   text-align: center;
   padding: 22px 18px 18px;
@@ -354,7 +351,7 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--font-mono);
 }
 
-/* ── RATE TABLE ── */
+/* RATE TABLE */
 .rate-card { grid-column: 1 / -1; }
 
 .rate-table {
@@ -402,7 +399,7 @@ input[type="range"]::-moz-range-thumb {
   margin-left: 7px;
 }
 
-/* ── NOTES ── */
+/* NOTES */
 .notes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -427,7 +424,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: 5px;
 }
 
-/* ── DISCLOSURE ── */
+/* DISCLOSURE */
 .disclosure {
   font-size: 11px;
   color: #aaa;
@@ -436,7 +433,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: 20px;
 }
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media (max-width: 600px) {
   .page { padding: 24px 14px 48px; }
   .main-grid { grid-template-columns: 1fr; }
@@ -446,7 +443,19 @@ input[type="range"]::-moz-range-thumb {
 </style>
 </head>
 <body>
-  
+
+<div class="page">
+
+  <div class="page-header">
+    <h1 class="page-title">Owner Financing Calculator</h1>
+    <p class="page-sub">No credit check. No bank. Just land. See your monthly payment and rate instantly.</p>
+    <div class="cms-badge" id="cms-badge">
+      <span class="cms-dot"></span> Price pulled from this listing
+    </div>
+  </div>
+
+  <div class="main-grid">
+
     <!-- Inputs -->
     <div class="card">
       <div class="card-head"><span class="card-title">Your details</span></div>
@@ -664,21 +673,29 @@ function update() {
   document.getElementById('r-down').textContent = fi(down);
 }
 
+function applyPrice(raw) {
+  var p = parseFloat(String(raw).replace(/[^0-9.]/g, ''));
+  if (isNaN(p) || p <= 0) return;
+  cmsPrice = p;
+  var slider = document.getElementById('price-slider');
+  if (p > parseInt(slider.max)) slider.max = p;
+  if (p < parseInt(slider.min)) slider.min = p;
+  slider.value = p;
+  slider.disabled = true;
+  slider.style.opacity = '0.35';
+  slider.style.cursor = 'not-allowed';
+  document.getElementById('cms-badge').classList.add('show');
+  var tenPct = Math.round(p * 0.10 / 100) * 100;
+  document.getElementById('down-input').value = Math.max(tenPct, 1000);
+  update();
+}
+
 window.addEventListener('message', function(e) {
-  if (e.data && e.data.mwrPrice) {
-    const p = parseFloat(e.data.mwrPrice);
-    if (!isNaN(p) && p > 0) {
-      cmsPrice = p;
-      const slider = document.getElementById('price-slider');
-      slider.value = Math.min(Math.max(p, parseInt(slider.min)), parseInt(slider.max));
-      slider.disabled = true;
-      slider.style.opacity = '0.35';
-      slider.style.cursor = 'not-allowed';
-      document.getElementById('cms-badge').classList.add('show');
-      const tenPct = Math.round(p * 0.10 / 100) * 100;
-      document.getElementById('down-input').value = Math.max(tenPct, 1000);
-      update();
-    }
+  if (!e.data) return;
+  var raw = e.data.mwrPrice || e.data.price;
+  if (raw) applyPrice(raw);
+  if (e.data.requestPrice) {
+    try { window.parent.postMessage({ requestPrice: true }, '*'); } catch(err) {}
   }
 });
 
@@ -686,6 +703,14 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('price-slider').addEventListener('input', update);
   document.getElementById('down-input').addEventListener('input', update);
   update();
+
+  var attempts = 0;
+  var poll = setInterval(function() {
+    attempts++;
+    if (cmsPrice) { clearInterval(poll); return; }
+    if (attempts > 15) { clearInterval(poll); return; }
+    try { window.parent.postMessage({ requestPrice: true }, '*'); } catch(e) {}
+  }, 200);
 });
 </script>
 </body>
